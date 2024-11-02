@@ -16,90 +16,112 @@ namespace Hotel_Client_Management_System.UControl
     {
         public UserControlReservation()
         {
+            
             InitializeComponent();
+            // Load the available room types from the database into the room type combo box
             LoadRoomType();
+            // Load existing reservation data to display on the user control
             LoadReservationData();
+            // This event will trigger when the user selects a different room type
             cmbRoomType.SelectedIndexChanged += cmbRoomType_SelectedIndexChanged;
+            // This event will trigger when the user selects a different room description
             cmbRoomDescription.SelectedIndexChanged += cmbRoomDescription_SelectedIndexChanged;
+
+
+            // This event will trigger when the user selects a different room type in the update section
             cmbUpdateRoomType.SelectedIndexChanged += cmbUpdateRoomType_SelectedIndexChanged;
+            // This event will trigger when the user selects a different room description in the update section
             cmbUpdateRoomDescription.SelectedIndexChanged += cmbUpdateRoomDescription_SelectedIndexChanged;
         }
 
         /* Start of the Add Reservation Tab Page Code */
-
-        private void LoadComboBoxData(ComboBox comboBox, string query, Dictionary<string, object> parameters = null)
+        private void LoadRoomType()
         {
-            comboBox.Items.Clear(); // Clear existing items
+            // Clear any existing items in the room type combo box to prepare for fresh data loading
+            cmbRoomType.Items.Clear();
+
             try
             {
                 using (MySqlConnection conn = DatabaseHelper.GetConnection())
                 {
                     conn.Open();
+
+                    string query = "SELECT DISTINCT TRIM(LOWER(room_type)) AS room_type FROM room";
+
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
-                        // Add parameters if any
-                        if (parameters != null)
-                        {
-                            foreach (var parameter in parameters)
-                            {
-                                cmd.Parameters.AddWithValue(parameter.Key, parameter.Value);
-                            }
-                        }
+                        MySqlDataReader reader = cmd.ExecuteReader();
 
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        while (reader.Read())
                         {
-                            while (reader.Read())
-                            {
-                                string item = reader[0].ToString(); // Assuming you want the first column
-                                item = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(item); // Format the string
+                            // Convert the room type to title case for better readability
+                            string roomType = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(reader["room_type"].ToString());
 
-                                if (!comboBox.Items.Contains(item))
-                                {
-                                    comboBox.Items.Add(item);
-                                }
+                            // Check if the combo box already contains the room type to avoid duplicates
+                            if (!cmbRoomType.Items.Contains(roomType))
+                            {
+                                // Add the room type to the combo box if it does not exist
+                                cmbRoomType.Items.Add(roomType);
                             }
                         }
                     }
                 }
 
-                // Optionally set the first item as selected if items are available
-                if (comboBox.Items.Count > 0)
+                // If any room types were loaded, set the selected index to the first item
+                if (cmbRoomType.Items.Count > 0)
                 {
-                    comboBox.SelectedIndex = 0;
+                    cmbRoomType.SelectedIndex = 0;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred while loading data: " + ex.Message);
+                // Handle any exceptions that occur during the loading process and show an error message
+                MessageBox.Show("An error occurred while loading room types: " + ex.Message);
             }
-        }
-
-        private void LoadRoomType()
-        {
-            string query = "SELECT DISTINCT TRIM(LOWER(room_type)) AS room_type FROM room";
-            LoadComboBoxData(cmbRoomType, query);
         }
 
         private void LoadRoomDescription()
         {
-            // Check if a room type is selected; if not, exit the method
+            // Clear any existing items in the room description combo box to prepare for fresh data loading
+            cmbRoomDescription.Items.Clear();
+
+            // Check if a room type is selected; if not, exit the method to avoid querying without a valid selection
             if (cmbRoomType.SelectedItem == null)
             {
                 return; // Exit if no room type is selected
             }
 
-            string query = "SELECT room_description FROM room WHERE room_type = @RoomType";
-            var parameters = new Dictionary<string, object>
+            try
             {
-                { "@RoomType", cmbRoomType.SelectedItem.ToString() }
-            };
+                using (MySqlConnection conn = DatabaseHelper.GetConnection())
+                {
+                    conn.Open();
 
-            LoadComboBoxData(cmbRoomDescription, query, parameters);
+                    // SQL query to select room descriptions from the room table for the selected room type
+                    string query = "SELECT room_description FROM room WHERE room_type = @RoomType";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@RoomType", cmbRoomType.SelectedItem.ToString());
+
+                        MySqlDataReader reader = cmd.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            // Add each room description to the room description combo box
+                            cmbRoomDescription.Items.Add(reader["room_description"].ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while loading room descriptions: " + ex.Message);
+            }
         }
 
         private void LoadRoomPrice()
         {
-            // Check if a room type or room description is selected; if either is null, exit the method
+            // Check if a room type or room description is selected; if either is null, exit the method to avoid querying without valid selections
             if (cmbRoomType.SelectedItem == null || cmbRoomDescription.SelectedItem == null)
             {
                 return; // Exit if no room type or description is selected
@@ -136,9 +158,11 @@ namespace Hotel_Client_Management_System.UControl
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            // Validation section to ensure all required fields are filled if (string.IsNullOrWhiteSpace(txtFirstName.Text) || string.IsNullOrWhiteSpace(txtLastName.Text) ||
-            if (string.IsNullOrWhiteSpace(txtPhoneNumber.Text) || string.IsNullOrWhiteSpace(txtAddress.Text))
+            // Validation section to ensure all required fields are filled
+            if (string.IsNullOrWhiteSpace(txtFirstName.Text) || string.IsNullOrWhiteSpace(txtLastName.Text) ||
+                string.IsNullOrWhiteSpace(txtPhoneNumber.Text) || string.IsNullOrWhiteSpace(txtAddress.Text))
             {
+                // Show an error message if any customer details are missing
                 MessageBox.Show("Please fill in all the customer details.");
                 return; // Exit the method to prevent further processing
             }
@@ -174,6 +198,7 @@ namespace Hotel_Client_Management_System.UControl
             long roomID = GetRoomID(roomType, roomDescription);
             if (roomID <= 0)
             {
+                // Show an error message if the room ID is not valid
                 MessageBox.Show("Room not found! Please check the room details.");
                 return;
             }
@@ -212,7 +237,8 @@ namespace Hotel_Client_Management_System.UControl
 
                     // Query to count reservations that conflict with the provided check-in and check-out dates
                     string query = @"
-                        SELECT COUNT(*) FROM reservation 
+                        SELECT COUNT(*) 
+                        FROM reservation 
                         WHERE room_id = @RoomID 
                         AND NOT (@CheckOutDate <= check_in_date OR @CheckInDate >= check_out_date)";
 
