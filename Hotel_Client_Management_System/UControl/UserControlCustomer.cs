@@ -33,7 +33,7 @@ namespace Hotel_Client_Management_System.UControl
                 {
                     conn.Open();
 
-                    string query = "SELECT cus_id, CONCAT(cus_firstname, ' ', cus_lastname) AS FullName, cus_type, cus_phone, cus_address, status FROM customer";
+                    string query = "SELECT cus_id, CONCAT(cus_firstname, ' ', cus_lastname) AS FullName, cus_type, cus_phone, cus_address, status, times_checked_In FROM customer";
 
                     MySqlCommand cmd = new(query, conn);
 
@@ -64,7 +64,7 @@ namespace Hotel_Client_Management_System.UControl
             txtCustomerAddress.Clear();
             txtCustomerStatus.Clear();
             txtTimeCheckedIn.Clear();
-            txtHistoryCustomerComment.Clear();
+            txtBalance.Clear();
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -109,6 +109,7 @@ namespace Hotel_Client_Management_System.UControl
                 txtCustomerPhoneNumber.Text = row.Cells["cus_phone"].Value?.ToString() ?? string.Empty;
                 txtCustomerAddress.Text = row.Cells["cus_address"].Value?.ToString() ?? string.Empty;
                 txtCustomerStatus.Text = row.Cells["status"].Value?.ToString() ?? string.Empty;
+                txtTimeCheckedIn.Text = row.Cells["times_checked_In"].Value?.ToString() ?? string.Empty;
             }
         }
     }

@@ -44,12 +44,14 @@
             tabPageCustomerHistory = new TabPage();
             groupBox4 = new GroupBox();
             groupBox5 = new GroupBox();
+            txtLastCheckedIn = new TextBox();
+            label5 = new Label();
             label3 = new Label();
             txtCustomerStatus = new TextBox();
             label2 = new Label();
             txtTimeCheckedIn = new TextBox();
             label10 = new Label();
-            txtHistoryCustomerComment = new TextBox();
+            txtBalance = new TextBox();
             label11 = new Label();
             txtCustomerAddress = new TextBox();
             label8 = new Label();
@@ -61,8 +63,6 @@
             pictureBox1 = new PictureBox();
             label4 = new Label();
             txtCustomerFirstName = new TextBox();
-            label5 = new Label();
-            textBox1 = new TextBox();
             tControlCustomer.SuspendLayout();
             tabPageSearchCustomer.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -233,14 +233,14 @@
             // groupBox5
             // 
             groupBox5.BackColor = Color.Silver;
-            groupBox5.Controls.Add(textBox1);
+            groupBox5.Controls.Add(txtLastCheckedIn);
             groupBox5.Controls.Add(label5);
             groupBox5.Controls.Add(label3);
             groupBox5.Controls.Add(txtCustomerStatus);
             groupBox5.Controls.Add(label2);
             groupBox5.Controls.Add(txtTimeCheckedIn);
             groupBox5.Controls.Add(label10);
-            groupBox5.Controls.Add(txtHistoryCustomerComment);
+            groupBox5.Controls.Add(txtBalance);
             groupBox5.Controls.Add(label11);
             groupBox5.Controls.Add(txtCustomerAddress);
             groupBox5.Controls.Add(label8);
@@ -258,10 +258,28 @@
             groupBox5.TabIndex = 0;
             groupBox5.TabStop = false;
             // 
+            // txtLastCheckedIn
+            // 
+            txtLastCheckedIn.Location = new Point(700, 279);
+            txtLastCheckedIn.Name = "txtLastCheckedIn";
+            txtLastCheckedIn.ReadOnly = true;
+            txtLastCheckedIn.Size = new Size(85, 23);
+            txtLastCheckedIn.TabIndex = 18;
+            txtLastCheckedIn.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(678, 246);
+            label5.Name = "label5";
+            label5.Size = new Size(120, 16);
+            label5.TabIndex = 17;
+            label5.Text = "Last Checked - In";
+            // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(569, 164);
+            label3.Location = new Point(580, 164);
             label3.Name = "label3";
             label3.Size = new Size(45, 16);
             label3.TabIndex = 16;
@@ -274,6 +292,7 @@
             txtCustomerStatus.ReadOnly = true;
             txtCustomerStatus.Size = new Size(103, 23);
             txtCustomerStatus.TabIndex = 15;
+            txtCustomerStatus.TextAlign = HorizontalAlignment.Center;
             // 
             // label2
             // 
@@ -286,27 +305,30 @@
             // 
             // txtTimeCheckedIn
             // 
-            txtTimeCheckedIn.Location = new Point(691, 195);
+            txtTimeCheckedIn.Location = new Point(700, 195);
             txtTimeCheckedIn.Name = "txtTimeCheckedIn";
             txtTimeCheckedIn.ReadOnly = true;
             txtTimeCheckedIn.Size = new Size(85, 23);
             txtTimeCheckedIn.TabIndex = 13;
+            txtTimeCheckedIn.TextAlign = HorizontalAlignment.Center;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(569, 246);
+            label10.Location = new Point(560, 246);
             label10.Name = "label10";
             label10.Size = new Size(65, 16);
             label10.TabIndex = 12;
             label10.Text = "Balance:";
             // 
-            // txtHistoryCustomerComment
+            // txtBalance
             // 
-            txtHistoryCustomerComment.Location = new Point(549, 272);
-            txtHistoryCustomerComment.Name = "txtHistoryCustomerComment";
-            txtHistoryCustomerComment.Size = new Size(103, 23);
-            txtHistoryCustomerComment.TabIndex = 11;
+            txtBalance.Location = new Point(549, 279);
+            txtBalance.Name = "txtBalance";
+            txtBalance.ReadOnly = true;
+            txtBalance.Size = new Size(103, 23);
+            txtBalance.TabIndex = 11;
+            txtBalance.TextAlign = HorizontalAlignment.Center;
             // 
             // label11
             // 
@@ -319,11 +341,12 @@
             // 
             // txtCustomerAddress
             // 
-            txtCustomerAddress.Location = new Point(412, 353);
+            txtCustomerAddress.Location = new Point(399, 351);
             txtCustomerAddress.Multiline = true;
             txtCustomerAddress.Name = "txtCustomerAddress";
             txtCustomerAddress.Size = new Size(240, 48);
             txtCustomerAddress.TabIndex = 9;
+            txtCustomerAddress.TextAlign = HorizontalAlignment.Center;
             // 
             // label8
             // 
@@ -336,15 +359,16 @@
             // 
             // txtCustomerPhoneNumber
             // 
-            txtCustomerPhoneNumber.Location = new Point(224, 279);
+            txtCustomerPhoneNumber.Location = new Point(207, 279);
             txtCustomerPhoneNumber.Name = "txtCustomerPhoneNumber";
             txtCustomerPhoneNumber.Size = new Size(134, 23);
             txtCustomerPhoneNumber.TabIndex = 7;
+            txtCustomerPhoneNumber.TextAlign = HorizontalAlignment.Center;
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(371, 246);
+            label9.Location = new Point(374, 246);
             label9.Name = "label9";
             label9.Size = new Size(103, 16);
             label9.TabIndex = 6;
@@ -352,16 +376,17 @@
             // 
             // txtCustomerType
             // 
-            txtCustomerType.Location = new Point(387, 279);
+            txtCustomerType.Location = new Point(384, 279);
             txtCustomerType.Name = "txtCustomerType";
             txtCustomerType.ReadOnly = true;
-            txtCustomerType.Size = new Size(85, 23);
+            txtCustomerType.Size = new Size(75, 23);
             txtCustomerType.TabIndex = 5;
+            txtCustomerType.TextAlign = HorizontalAlignment.Center;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(354, 162);
+            label7.Location = new Point(374, 164);
             label7.Name = "label7";
             label7.Size = new Size(75, 16);
             label7.TabIndex = 4;
@@ -373,6 +398,7 @@
             txtCustomerLastName.Name = "txtCustomerLastName";
             txtCustomerLastName.Size = new Size(134, 23);
             txtCustomerLastName.TabIndex = 3;
+            txtCustomerLastName.TextAlign = HorizontalAlignment.Center;
             // 
             // pictureBox1
             // 
@@ -387,7 +413,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(207, 162);
+            label4.Location = new Point(224, 164);
             label4.Name = "label4";
             label4.Size = new Size(75, 16);
             label4.TabIndex = 1;
@@ -399,23 +425,7 @@
             txtCustomerFirstName.Name = "txtCustomerFirstName";
             txtCustomerFirstName.Size = new Size(134, 23);
             txtCustomerFirstName.TabIndex = 0;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(678, 246);
-            label5.Name = "label5";
-            label5.Size = new Size(120, 16);
-            label5.TabIndex = 17;
-            label5.Text = "Last Checked - In";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(691, 272);
-            textBox1.Name = "textBox1";
-            textBox1.ReadOnly = true;
-            textBox1.Size = new Size(85, 23);
-            textBox1.TabIndex = 18;
+            txtCustomerFirstName.TextAlign = HorizontalAlignment.Center;
             // 
             // UserControlCustomer
             // 
@@ -458,7 +468,7 @@
         private TextBox txtCustomerLastName;
         private PictureBox pictureBox1;
         private Label label10;
-        private TextBox txtHistoryCustomerComment;
+        private TextBox txtBalance;
         private Label label11;
         private TextBox txtCustomerAddress;
         private Label label8;
@@ -477,7 +487,7 @@
         private DataGridViewTextBoxColumn cus_phone;
         private DataGridViewTextBoxColumn cus_address;
         private DataGridViewTextBoxColumn status;
-        private TextBox textBox1;
+        private TextBox txtLastCheckedIn;
         private Label label5;
     }
 }

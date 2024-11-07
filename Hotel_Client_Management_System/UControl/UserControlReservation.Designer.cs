@@ -71,7 +71,6 @@
             label6 = new Label();
             groupBox1 = new GroupBox();
             label11 = new Label();
-            txtCustomerType = new TextBox();
             label10 = new Label();
             txtAddress = new TextBox();
             label8 = new Label();
@@ -82,6 +81,7 @@
             label3 = new Label();
             btnAdd = new Button();
             tabControlReservation = new TabControl();
+            cmbCustomerType = new ComboBox();
             tabPageUpdateAndCancelReservation.SuspendLayout();
             groupBox5.SuspendLayout();
             tabPageSearchReservation.SuspendLayout();
@@ -101,7 +101,7 @@
             tabPageUpdateAndCancelReservation.Location = new Point(4, 4);
             tabPageUpdateAndCancelReservation.Name = "tabPageUpdateAndCancelReservation";
             tabPageUpdateAndCancelReservation.Padding = new Padding(3);
-            tabPageUpdateAndCancelReservation.Size = new Size(1089, 504);
+            tabPageUpdateAndCancelReservation.Size = new Size(1089, 507);
             tabPageUpdateAndCancelReservation.TabIndex = 2;
             tabPageUpdateAndCancelReservation.Text = "Update and Cancel Reservation";
             // 
@@ -262,7 +262,7 @@
             tabPageSearchReservation.Location = new Point(4, 4);
             tabPageSearchReservation.Name = "tabPageSearchReservation";
             tabPageSearchReservation.Padding = new Padding(3);
-            tabPageSearchReservation.Size = new Size(1089, 504);
+            tabPageSearchReservation.Size = new Size(1089, 507);
             tabPageSearchReservation.TabIndex = 1;
             tabPageSearchReservation.Text = "Search Reservation";
             tabPageSearchReservation.UseVisualStyleBackColor = true;
@@ -276,7 +276,7 @@
             groupBox2.Controls.Add(dataGVReservation);
             groupBox2.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox2.ForeColor = Color.Black;
-            groupBox2.Location = new Point(6, 3);
+            groupBox2.Location = new Point(6, 2);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(1077, 482);
             groupBox2.TabIndex = 2;
@@ -547,8 +547,8 @@
             // groupBox1
             // 
             groupBox1.BackColor = Color.Silver;
+            groupBox1.Controls.Add(cmbCustomerType);
             groupBox1.Controls.Add(label11);
-            groupBox1.Controls.Add(txtCustomerType);
             groupBox1.Controls.Add(label10);
             groupBox1.Controls.Add(txtAddress);
             groupBox1.Controls.Add(label8);
@@ -575,13 +575,6 @@
             label11.Size = new Size(107, 16);
             label11.TabIndex = 24;
             label11.Text = "Customer Type:";
-            // 
-            // txtCustomerType
-            // 
-            txtCustomerType.Location = new Point(274, 172);
-            txtCustomerType.Name = "txtCustomerType";
-            txtCustomerType.Size = new Size(85, 23);
-            txtCustomerType.TabIndex = 23;
             // 
             // label10
             // 
@@ -688,6 +681,17 @@
             tabControlReservation.Size = new Size(1097, 535);
             tabControlReservation.TabIndex = 0;
             // 
+            // cmbCustomerType
+            // 
+            cmbCustomerType.Anchor = AnchorStyles.None;
+            cmbCustomerType.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbCustomerType.FlatStyle = FlatStyle.Flat;
+            cmbCustomerType.FormattingEnabled = true;
+            cmbCustomerType.Location = new Point(277, 172);
+            cmbCustomerType.Name = "cmbCustomerType";
+            cmbCustomerType.Size = new Size(85, 24);
+            cmbCustomerType.TabIndex = 25;
+            // 
             // UserControlReservation
             // 
             AutoScaleDimensions = new SizeF(9F, 18F);
@@ -751,7 +755,6 @@
         private Label label6;
         private GroupBox groupBox1;
         private Label label11;
-        private TextBox txtCustomerType;
         private Label label10;
         private TextBox txtAddress;
         private Label label8;
@@ -769,5 +772,6 @@
         private DataGridViewTextBoxColumn partial_payment;
         private DataGridViewTextBoxColumn check_in_date;
         private DataGridViewTextBoxColumn check_out_date;
+        private ComboBox cmbCustomerType;
     }
 }

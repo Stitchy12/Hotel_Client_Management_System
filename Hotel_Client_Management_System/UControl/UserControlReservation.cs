@@ -16,153 +16,146 @@ namespace Hotel_Client_Management_System.UControl
     {
         public UserControlReservation()
         {
-            
             InitializeComponent();
-            // Load the available room types from the database into the room type combo box
+            
             LoadRoomType();
-            // Load existing reservation data to display on the user control
             LoadReservationData();
-            // This event will trigger when the user selects a different room type
             cmbRoomType.SelectedIndexChanged += cmbRoomType_SelectedIndexChanged;
-            // This event will trigger when the user selects a different room description
             cmbRoomDescription.SelectedIndexChanged += cmbRoomDescription_SelectedIndexChanged;
-
-
-            // This event will trigger when the user selects a different room type in the update section
             cmbUpdateRoomType.SelectedIndexChanged += cmbUpdateRoomType_SelectedIndexChanged;
-            // This event will trigger when the user selects a different room description in the update section
             cmbUpdateRoomDescription.SelectedIndexChanged += cmbUpdateRoomDescription_SelectedIndexChanged;
+
+            // Initialize customer type ComboBox
+            InitializeCustomerTypeComboBox();
+        }
+
+        private void InitializeCustomerTypeComboBox()
+        {
+            cmbCustomerType.Items.Clear(); // Clear existing items
+            cmbCustomerType.Items.Add("Local");
+            cmbCustomerType.Items.Add("Foreign");
+            cmbCustomerType.SelectedIndex = 0; // Optionally select the first item
         }
 
         /* Start of the Add Reservation Tab Page Code */
-        private void LoadRoomType()
-        {
-            // Clear any existing items in the room type combo box to prepare for fresh data loading
-            cmbRoomType.Items.Clear();
 
+        private void LoadComboBoxData(ComboBox comboBox, string query, Dictionary<string, object> parameters = null)
+        {
+            comboBox.Items.Clear(); // Clear existing items
             try
             {
                 using (MySqlConnection conn = DatabaseHelper.GetConnection())
                 {
                     conn.Open();
-
-                    string query = "SELECT DISTINCT TRIM(LOWER(room_type)) AS room_type FROM room";
-
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
-                        MySqlDataReader reader = cmd.ExecuteReader();
-
-                        while (reader.Read())
+                        // Add parameters if any
+                        if (parameters != null)
                         {
-                            // Convert the room type to title case for better readability
-                            string roomType = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(reader["room_type"].ToString());
-
-                            // Check if the combo box already contains the room type to avoid duplicates
-                            if (!cmbRoomType.Items.Contains(roomType))
+                            foreach (var parameter in parameters)
                             {
-                                // Add the room type to the combo box if it does not exist
-                                cmbRoomType.Items.Add(roomType);
+                                cmd.Parameters.AddWithValue(parameter.Key, parameter.Value);
+                            }
+                        }
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string item = reader[0].ToString(); // Assuming you want the first column
+                                item = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(item); // Format the string
+
+                                if (!comboBox.Items.Contains(item))
+                                {
+                                    comboBox.Items.Add(item);
+                                }
                             }
                         }
                     }
                 }
 
-                // If any room types were loaded, set the selected index to the first item
-                if (cmbRoomType.Items.Count > 0)
+                // Optionally set the first item as selected if items are available
+                if (comboBox.Items.Count > 0)
                 {
-                    cmbRoomType.SelectedIndex = 0;
+                    comboBox.SelectedIndex = 0;
                 }
             }
             catch (Exception ex)
             {
-                // Handle any exceptions that occur during the loading process and show an error message
-                MessageBox.Show("An error occurred while loading room types: " + ex.Message);
+                ErrorHandler.HandleError(ex, "An error occurred while loading data into the ComboBox.");
+            }
+        }
+
+        private void LoadRoomType()
+        {
+            string query = "SELECT DISTINCT TRIM(LOWER(room_type)) AS room_type FROM room";
+            try
+            {
+                LoadComboBoxData(cmbRoomType, query);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(ex, "An error occurred while loading room types.");
             }
         }
 
         private void LoadRoomDescription()
         {
-            // Clear any existing items in the room description combo box to prepare for fresh data loading
-            cmbRoomDescription.Items.Clear();
-
-            // Check if a room type is selected; if not, exit the method to avoid querying without a valid selection
+            // Check if a room type is selected; if not, exit the method
             if (cmbRoomType.SelectedItem == null)
             {
                 return; // Exit if no room type is selected
             }
 
-            try
+            string query = "SELECT room_description FROM room WHERE room_type = @RoomType";
+            var parameters = new Dictionary<string, object>
             {
-                using (MySqlConnection conn = DatabaseHelper.GetConnection())
-                {
-                    conn.Open();
+                { "@RoomType", cmbRoomType.SelectedItem.ToString() }
+            };
 
-                    // SQL query to select room descriptions from the room table for the selected room type
-                    string query = "SELECT room_description FROM room WHERE room_type = @RoomType";
-
-                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@RoomType", cmbRoomType.SelectedItem.ToString());
-
-                        MySqlDataReader reader = cmd.ExecuteReader();
-                        while (reader.Read())
-                        {
-                            // Add each room description to the room description combo box
-                            cmbRoomDescription.Items.Add(reader["room_description"].ToString());
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("An error occurred while loading room descriptions: " + ex.Message);
-            }
+            LoadComboBoxData(cmbRoomDescription, query, parameters);
         }
 
         private void LoadRoomPrice()
         {
-            // Check if a room type or room description is selected; if either is null, exit the method to avoid querying without valid selections
+            // Check if a room type or room description is selected; if either is null, exit the method
             if (cmbRoomType.SelectedItem == null || cmbRoomDescription.SelectedItem == null)
             {
                 return; // Exit if no room type or description is selected
             }
 
-            using (MySqlConnection connection = DatabaseHelper.GetConnection())
+            try
             {
-                connection.Open();
-
-                // SQL query to select the room price based on the selected room type and description
-                string priceQuery = "SELECT room_price FROM room WHERE room_type = @RoomType AND room_description = @RoomDescription";
-
-                using (MySqlCommand command = new MySqlCommand(priceQuery, connection))
+                using (MySqlConnection connection = DatabaseHelper.GetConnection())
                 {
-                    command.Parameters.AddWithValue("@RoomType", cmbRoomType.SelectedItem.ToString());
-                    command.Parameters.AddWithValue("@RoomDescription", cmbRoomDescription.SelectedItem.ToString());
+                    connection.Open();
 
-                    object result = command.ExecuteScalar();
+                    // SQL query to select the room price based on the selected room type and description
+                    string priceQuery = "SELECT room_price FROM room WHERE room_type = @RoomType AND room_description = @RoomDescription";
 
-                    // Check if the result is not null, indicating that a price was found
-                    if (result != null)
+                    using (MySqlCommand command = new MySqlCommand(priceQuery, connection))
                     {
-                        // Set the text box to display the retrieved room price
-                        txtAddPrice.Text = result.ToString();
-                    }
-                    else
-                    {
-                        // If no price was found, display "N/A" in the text box
-                        txtAddPrice.Text = "N/A";
+                        command.Parameters.AddWithValue("@RoomType", cmbRoomType.SelectedItem.ToString());
+                        command.Parameters.AddWithValue("@RoomDescription", cmbRoomDescription.SelectedItem.ToString());
+
+                        object result = command.ExecuteScalar();
+
+                        // Check if the result is not null, indicating that a price was found
+                        txtAddPrice.Text = result?.ToString() ?? "N/A"; // Use null-coalescing operator
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(ex, "An error occurred while loading the room price.");
             }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             // Validation section to ensure all required fields are filled
-            if (string.IsNullOrWhiteSpace(txtFirstName.Text) || string.IsNullOrWhiteSpace(txtLastName.Text) ||
-                string.IsNullOrWhiteSpace(txtPhoneNumber.Text) || string.IsNullOrWhiteSpace(txtAddress.Text))
+            if (string.IsNullOrWhiteSpace(txtPhoneNumber.Text) || string.IsNullOrWhiteSpace(txtAddress.Text))
             {
-                // Show an error message if any customer details are missing
                 MessageBox.Show("Please fill in all the customer details.");
                 return; // Exit the method to prevent further processing
             }
@@ -188,7 +181,7 @@ namespace Hotel_Client_Management_System.UControl
             // Get customer information from the input fields
             string firstName = txtFirstName.Text;
             string lastName = txtLastName.Text;
-            string customerType = txtCustomerType.Text; // Customer type might be optional
+            string customerType = cmbCustomerType.SelectedItem.ToString(); // Customer type might be optional
             string phoneNumber = txtPhoneNumber.Text;
             string address = txtAddress.Text;
             DateTime checkInDate = dtpCheckInDate.Value;
@@ -198,7 +191,6 @@ namespace Hotel_Client_Management_System.UControl
             long roomID = GetRoomID(roomType, roomDescription);
             if (roomID <= 0)
             {
-                // Show an error message if the room ID is not valid
                 MessageBox.Show("Room not found! Please check the room details.");
                 return;
             }
@@ -217,13 +209,49 @@ namespace Hotel_Client_Management_System.UControl
             if (customerID > 0)
             {
                 // Insert the reservation details into the database
-                InsertReservation(customerID, roomID, checkInDate, checkOutDate, partialPayment);
+                long reservationID = InsertReservation(customerID, roomID, checkInDate, checkOutDate, partialPayment);
+
+                MessageBox.Show("Reservation Added Successfully!", "Added");
+
+                // If the reservation was added successfully, insert the payment
+                if (reservationID > 0)
+                {
+                    InsertPayment(reservationID, partialPayment);
+                }
 
                 // Reload the reservation data to update the display
                 LoadReservationData();
 
                 // Clear the input fields after successful reservation
                 ReservationCLearFields();
+            }
+        }
+
+        private void InsertPayment(long reservationID, decimal paymentAmount)
+        {
+            try
+            {
+                using (MySqlConnection conn = DatabaseHelper.GetConnection())
+                {
+                    conn.Open();
+
+                    string query = "INSERT INTO payment (payment_date, payment_amount_paid, payment_method, reservation_id) " +
+                                   "VALUES (@PaymentDate, @PaymentAmount, @PaymentMethod, @ReservationID)";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@PaymentDate", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@PaymentAmount", paymentAmount);
+                        cmd.Parameters.AddWithValue("@PaymentMethod", "Gcash");
+                        cmd.Parameters.AddWithValue("@ReservationID", reservationID);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(ex, "An error occurred while adding the payment.");
             }
         }
 
@@ -237,8 +265,7 @@ namespace Hotel_Client_Management_System.UControl
 
                     // Query to count reservations that conflict with the provided check-in and check-out dates
                     string query = @"
-                        SELECT COUNT(*) 
-                        FROM reservation 
+                        SELECT COUNT(*) FROM reservation 
                         WHERE room_id = @RoomID 
                         AND NOT (@CheckOutDate <= check_in_date OR @CheckInDate >= check_out_date)";
 
@@ -273,7 +300,8 @@ namespace Hotel_Client_Management_System.UControl
                 {
                     conn.Open();
 
-                    string query = "SELECT cus_id FROM customer WHERE cus_firstname = @FirstName AND cus_lastname = @LastName AND cus_phone = @PhoneNumber";
+                    // Check if the customer already exists
+                    string query = "SELECT cus_id, times_checked_In FROM customer WHERE cus_firstname = @FirstName AND cus_lastname = @LastName AND cus_phone = @PhoneNumber";
 
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
@@ -281,34 +309,49 @@ namespace Hotel_Client_Management_System.UControl
                         cmd.Parameters.AddWithValue("@LastName", lastName);
                         cmd.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
 
-                        object result = cmd.ExecuteScalar();
-                        if (result != null)
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
-                            customerID = Convert.ToInt64(result);
-
-                            string updateStatusQuery = "UPDATE customer SET status = @Status WHERE cus_id = @CustomerID";
-                            using (MySqlCommand update = new MySqlCommand(updateStatusQuery, conn))
+                            if (reader.Read())
                             {
-                                update.Parameters.AddWithValue("@Status", status);
-                                update.Parameters.AddWithValue("@CustomerID", customerID);
-                                update.ExecuteNonQuery();
+                                // Customer exists, retrieve their ID and current check-in count
+                                customerID = reader.GetInt64("cus_id");
+                                int checkInCount = reader.GetInt32("times_checked_In");
+
+                                // Close the DataReader before executing another command
+                                reader.Close();
+
+                                // Update customer status and increment check-in count
+                                string updateStatusQuery = "UPDATE customer SET status = @Status, times_checked_In = @CheckInCount WHERE cus_id = @CustomerID";
+                                using (MySqlCommand update = new MySqlCommand(updateStatusQuery, conn))
+                                {
+                                    update.Parameters.AddWithValue("@Status", status);
+                                    update.Parameters.AddWithValue("@CheckInCount", checkInCount + 1); // Increment count
+                                    update.Parameters.AddWithValue("@CustomerID", customerID);
+                                    update.ExecuteNonQuery();
+                                }
+
+                                MessageBox.Show($"Welcome back, {firstName} {lastName}! You have checked in {checkInCount + 1} times.");
                             }
-                        }
-                        else
-                        {
-                            string insertQuery = "INSERT INTO customer (cus_firstname, cus_lastname, cus_type, cus_phone, cus_address, status) " +
-                                                 "VALUES (@FirstName, @LastName, @CustomerType, @PhoneNumber, @Address, @Status); SELECT LAST_INSERT_ID();";
-
-                            using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, conn))
+                            else
                             {
-                                insertCmd.Parameters.AddWithValue("@FirstName", firstName);
-                                insertCmd.Parameters.AddWithValue("@LastName", lastName);
-                                insertCmd.Parameters.AddWithValue("@CustomerType", customerType);
-                                insertCmd.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
-                                insertCmd.Parameters.AddWithValue("@Address", address);
-                                insertCmd.Parameters.AddWithValue("@Status", status);
+                                // Close the DataReader before executing another command
+                                reader.Close();
 
-                                customerID = Convert.ToInt64(insertCmd.ExecuteScalar());
+                                // Insert new customer
+                                string insertQuery = "INSERT INTO customer (cus_firstname, cus_lastname, cus_type, cus_phone, cus_address, status, times_checked_In) " +
+                                                     "VALUES (@FirstName, @LastName, @CustomerType, @PhoneNumber, @Address, @Status, 1); SELECT LAST_INSERT_ID();";
+
+                                using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, conn))
+                                {
+                                    insertCmd.Parameters.AddWithValue("@FirstName", firstName);
+                                    insertCmd.Parameters.AddWithValue("@LastName", lastName);
+                                    insertCmd.Parameters.AddWithValue("@CustomerType", customerType);
+                                    insertCmd.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
+                                    insertCmd.Parameters.AddWithValue("@Address", address);
+                                    insertCmd.Parameters.AddWithValue("@Status", status);
+
+                                    customerID = Convert.ToInt64(insertCmd.ExecuteScalar());
+                                }
                             }
                         }
                     }
@@ -316,7 +359,7 @@ namespace Hotel_Client_Management_System.UControl
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred while retrieving or inserting customer information: " + ex.Message);
+                ErrorHandler.HandleError(ex, "An error occurred while retrieving or inserting customer information.");
             }
 
             return customerID;
@@ -352,23 +395,10 @@ namespace Hotel_Client_Management_System.UControl
             return roomID;
         }
 
-        /* private void UpdateCheckInCount(long customerID)
-         {
-             using (MySqlConnection conn = DatabaseHelper.GetConnection())
-             {
-                 conn.Open();
-                 string query = "UPDATE customer SET check_in_count = check_in_count + 1 WHERE cus_id = @CustomerID";
-
-                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                 {
-                     cmd.Parameters.AddWithValue("@CustomerID", customerID);
-                     cmd.ExecuteNonQuery();
-                 }
-             }
-         }
-        */
-        private void InsertReservation(long customerID, long roomID, DateTime CheckInDate, DateTime CheckOutDate, decimal partialPayment)
+        private long InsertReservation(long customerID, long roomID, DateTime checkInDate, DateTime checkOutDate, decimal partialPayment)
         {
+            long reservationID = 0; // Initialize reservation ID
+
             try
             {
                 using (MySqlConnection conn = DatabaseHelper.GetConnection())
@@ -376,33 +406,32 @@ namespace Hotel_Client_Management_System.UControl
                     conn.Open();
 
                     string query = "INSERT INTO reservation (cus_id, room_id, check_in_date, check_out_date, reservation_date, partial_payment) " +
-                                   "VALUES (@CustomerID, @RoomID, @CheckInDate, @CheckOutDate, @ReservationDate, @PartialPayment)";
+                                   "VALUES (@CustomerID, @RoomID, @CheckInDate, @CheckOutDate, @ReservationDate, @PartialPayment); " +
+                                   "SELECT LAST_INSERT_ID();"; // Get the last inserted ID
 
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@CustomerID", customerID);
                         cmd.Parameters.AddWithValue("@RoomID", roomID);
-                        cmd.Parameters.AddWithValue("@CheckInDate", CheckInDate);
-                        cmd.Parameters.AddWithValue("@CheckOutDate", CheckOutDate);
+                        cmd.Parameters.AddWithValue("@CheckInDate", checkInDate);
+                        cmd.Parameters.AddWithValue("@CheckOutDate", checkOutDate);
                         cmd.Parameters.AddWithValue("@ReservationDate", DateTime.Now);
                         cmd.Parameters.AddWithValue("@PartialPayment", partialPayment);
 
-                        int rowsAffected = cmd.ExecuteNonQuery();
-                        if (rowsAffected > 0)
+                        object result = cmd.ExecuteScalar();
+                        if (result != null)
                         {
-                            MessageBox.Show("Reservation added successfully!");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Failed to add reservation. Please try again.");
+                            reservationID = Convert.ToInt64(result);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred while adding the reservation: " + ex.Message);
+                ErrorHandler.HandleError(ex, "An error occurred while retrieving or inserting customer information.");
             }
+
+            return reservationID;
         }
 
         // Load reservation Data
@@ -429,7 +458,7 @@ namespace Hotel_Client_Management_System.UControl
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error has occured: " + ex.Message);
+                ErrorHandler.HandleError(ex, "An error occurred while retrieving or inserting customer information.");
             }
         }
 
@@ -441,7 +470,7 @@ namespace Hotel_Client_Management_System.UControl
             txtAddress.Clear();
             txtAddPrice.Clear();
             txtPartialPayment.Clear();
-            txtCustomerType.Clear();
+            cmbCustomerType.SelectedIndex = -1;
 
             dtpCheckInDate.Value = DateTime.Now;
             dtpCheckOutDate.Value = DateTime.Now;
