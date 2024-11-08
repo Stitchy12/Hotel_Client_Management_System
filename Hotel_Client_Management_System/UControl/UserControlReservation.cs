@@ -88,7 +88,7 @@ namespace Hotel_Client_Management_System.UControl
 
         private void LoadRoomType()
         {
-            string query = "SELECT DISTINCT TRIM(LOWER(room_type)) AS room_type FROM room";
+            string query = "SELECT DISTINCT TRIM(LOWER(room_type)) AS room_type FROM room WHERE status = 'Available'";
             try
             {
                 LoadComboBoxData(cmbRoomType, query);
@@ -423,6 +423,14 @@ namespace Hotel_Client_Management_System.UControl
                         {
                             reservationID = Convert.ToInt64(result);
                         }
+                    }
+
+                    // Update the room status to 'Reserved'
+                    string updateStatusQuery = "UPDATE room SET status = 'Reserved' WHERE room_id = @RoomID";
+                    using (MySqlCommand updateCmd = new MySqlCommand(updateStatusQuery, conn))
+                    {
+                        updateCmd.Parameters.AddWithValue("@RoomID", roomID);
+                        updateCmd.ExecuteNonQuery();
                     }
                 }
             }
