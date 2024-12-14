@@ -49,7 +49,6 @@ namespace Hotel_Client_Management_System.UControl
                     conn.Open();
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
-                        // Add parameters if any
                         if (parameters != null)
                         {
                             foreach (var parameter in parameters)

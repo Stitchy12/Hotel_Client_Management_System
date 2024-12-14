@@ -75,6 +75,7 @@
             cmbCheckOutRoomType = new ComboBox();
             label16 = new Label();
             label17 = new Label();
+            comboBox1 = new ComboBox();
             tabControlCheckInAndOut.SuspendLayout();
             tabPageAddCheckIn.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -217,6 +218,7 @@
             // groupBox1
             // 
             groupBox1.BackColor = Color.Silver;
+            groupBox1.Controls.Add(comboBox1);
             groupBox1.Controls.Add(label11);
             groupBox1.Controls.Add(txtCustomerType);
             groupBox1.Controls.Add(label10);
@@ -614,6 +616,14 @@
             label17.TabIndex = 0;
             label17.Text = "Room Type:";
             // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(274, 226);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(85, 24);
+            comboBox1.TabIndex = 27;
+            // 
             // UserControlCheckInAndOut
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -687,5 +697,6 @@
         private DataGridViewTextBoxColumn check_in_date;
         private Label label11;
         private TextBox txtCustomerType;
+        private ComboBox comboBox1;
     }
 }

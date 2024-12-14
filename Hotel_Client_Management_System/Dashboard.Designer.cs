@@ -78,7 +78,7 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(264, 720);
+            panel1.Size = new Size(258, 720);
             panel1.TabIndex = 0;
             // 
             // btnCheckIn
@@ -93,7 +93,7 @@
             btnCheckIn.ImageAlign = ContentAlignment.MiddleLeft;
             btnCheckIn.Location = new Point(47, 393);
             btnCheckIn.Name = "btnCheckIn";
-            btnCheckIn.Size = new Size(167, 49);
+            btnCheckIn.Size = new Size(161, 49);
             btnCheckIn.TabIndex = 7;
             btnCheckIn.Text = "    Check - In";
             btnCheckIn.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -120,7 +120,7 @@
             btnReport.ImageAlign = ContentAlignment.MiddleLeft;
             btnReport.Location = new Point(47, 635);
             btnReport.Name = "btnReport";
-            btnReport.Size = new Size(167, 49);
+            btnReport.Size = new Size(161, 49);
             btnReport.TabIndex = 6;
             btnReport.Text = "   Report";
             btnReport.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -139,7 +139,7 @@
             btnReservation.ImageAlign = ContentAlignment.MiddleLeft;
             btnReservation.Location = new Point(47, 558);
             btnReservation.Name = "btnReservation";
-            btnReservation.Size = new Size(167, 49);
+            btnReservation.Size = new Size(161, 49);
             btnReservation.TabIndex = 4;
             btnReservation.Text = "   Reservation";
             btnReservation.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -158,7 +158,7 @@
             btnRoomAvailable.ImageAlign = ContentAlignment.MiddleLeft;
             btnRoomAvailable.Location = new Point(47, 472);
             btnRoomAvailable.Name = "btnRoomAvailable";
-            btnRoomAvailable.Size = new Size(167, 49);
+            btnRoomAvailable.Size = new Size(161, 49);
             btnRoomAvailable.TabIndex = 3;
             btnRoomAvailable.Text = "       Room          Available";
             btnRoomAvailable.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -177,7 +177,7 @@
             btnCustomer.ImageAlign = ContentAlignment.MiddleLeft;
             btnCustomer.Location = new Point(47, 309);
             btnCustomer.Name = "btnCustomer";
-            btnCustomer.Size = new Size(167, 49);
+            btnCustomer.Size = new Size(161, 49);
             btnCustomer.TabIndex = 2;
             btnCustomer.Text = "      Customer";
             btnCustomer.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -196,7 +196,7 @@
             btnDashboard.ImageAlign = ContentAlignment.MiddleLeft;
             btnDashboard.Location = new Point(47, 233);
             btnDashboard.Name = "btnDashboard";
-            btnDashboard.Size = new Size(167, 49);
+            btnDashboard.Size = new Size(161, 49);
             btnDashboard.TabIndex = 1;
             btnDashboard.Text = "      Dashboard";
             btnDashboard.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -209,7 +209,7 @@
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(0, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(264, 227);
+            panel3.Size = new Size(258, 198);
             panel3.TabIndex = 0;
             // 
             // pictureBox2
@@ -217,7 +217,7 @@
             pictureBox2.Image = Properties.Resources.tessapartelle_logo;
             pictureBox2.Location = new Point(0, 0);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(264, 227);
+            pictureBox2.Size = new Size(258, 198);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 0;
             pictureBox2.TabStop = false;
@@ -229,9 +229,9 @@
             panel4.Controls.Add(label1);
             panel4.Controls.Add(panel5);
             panel4.Dock = DockStyle.Top;
-            panel4.Location = new Point(264, 0);
+            panel4.Location = new Point(258, 0);
             panel4.Name = "panel4";
-            panel4.Size = new Size(1102, 227);
+            panel4.Size = new Size(1108, 198);
             panel4.TabIndex = 0;
             // 
             // lblUsername
@@ -240,7 +240,7 @@
             lblUsername.BackColor = Color.FromArgb(64, 64, 64);
             lblUsername.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblUsername.ForeColor = Color.White;
-            lblUsername.Location = new Point(111, 154);
+            lblUsername.Location = new Point(111, 139);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(18, 19);
             lblUsername.TabIndex = 2;
@@ -252,7 +252,7 @@
             label1.BackColor = Color.FromArgb(64, 64, 64);
             label1.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(18, 154);
+            label1.Location = new Point(18, 139);
             label1.Name = "label1";
             label1.Size = new Size(87, 19);
             label1.TabIndex = 1;
@@ -267,7 +267,7 @@
             panel5.Dock = DockStyle.Top;
             panel5.Location = new Point(0, 0);
             panel5.Name = "panel5";
-            panel5.Size = new Size(1102, 94);
+            panel5.Size = new Size(1108, 94);
             panel5.TabIndex = 0;
             panel5.Paint += panel5_Paint;
             // 
@@ -304,7 +304,7 @@
             pictureBox1.Image = Properties.Resources.software_engineer;
             pictureBox1.Location = new Point(932, 23);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(62, 50);
+            pictureBox1.Size = new Size(68, 50);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -318,9 +318,9 @@
             panel2.Controls.Add(userControlCustomer1);
             panel2.Controls.Add(userControlRoom1);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(264, 227);
+            panel2.Location = new Point(258, 198);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1102, 493);
+            panel2.Size = new Size(1108, 522);
             panel2.TabIndex = 0;
             // 
             // userControlDashboard1
@@ -329,7 +329,7 @@
             userControlDashboard1.Dock = DockStyle.Fill;
             userControlDashboard1.Location = new Point(0, 0);
             userControlDashboard1.Name = "userControlDashboard1";
-            userControlDashboard1.Size = new Size(1102, 493);
+            userControlDashboard1.Size = new Size(1108, 522);
             userControlDashboard1.TabIndex = 0;
             // 
             // userControlReservation2
@@ -338,7 +338,7 @@
             userControlReservation2.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             userControlReservation2.Location = new Point(0, 0);
             userControlReservation2.Name = "userControlReservation2";
-            userControlReservation2.Size = new Size(1102, 493);
+            userControlReservation2.Size = new Size(1108, 522);
             userControlReservation2.TabIndex = 0;
             userControlReservation2.Visible = false;
             // 
@@ -347,7 +347,7 @@
             userControlCheckInAndOut2.Dock = DockStyle.Fill;
             userControlCheckInAndOut2.Location = new Point(0, 0);
             userControlCheckInAndOut2.Name = "userControlCheckInAndOut2";
-            userControlCheckInAndOut2.Size = new Size(1102, 493);
+            userControlCheckInAndOut2.Size = new Size(1108, 522);
             userControlCheckInAndOut2.TabIndex = 0;
             userControlCheckInAndOut2.Visible = false;
             // 
@@ -356,7 +356,7 @@
             userControlReport1.Dock = DockStyle.Fill;
             userControlReport1.Location = new Point(0, 0);
             userControlReport1.Name = "userControlReport1";
-            userControlReport1.Size = new Size(1102, 493);
+            userControlReport1.Size = new Size(1108, 522);
             userControlReport1.TabIndex = 0;
             userControlReport1.Visible = false;
             // 
@@ -367,7 +367,7 @@
             userControlCustomer1.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             userControlCustomer1.Location = new Point(0, 0);
             userControlCustomer1.Name = "userControlCustomer1";
-            userControlCustomer1.Size = new Size(1102, 493);
+            userControlCustomer1.Size = new Size(1108, 522);
             userControlCustomer1.TabIndex = 0;
             userControlCustomer1.Visible = false;
             // 
@@ -378,7 +378,7 @@
             userControlRoom1.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             userControlRoom1.Location = new Point(0, 0);
             userControlRoom1.Name = "userControlRoom1";
-            userControlRoom1.Size = new Size(1102, 493);
+            userControlRoom1.Size = new Size(1108, 522);
             userControlRoom1.TabIndex = 0;
             userControlRoom1.Visible = false;
             // 

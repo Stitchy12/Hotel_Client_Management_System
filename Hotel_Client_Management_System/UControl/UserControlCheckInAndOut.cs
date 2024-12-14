@@ -265,7 +265,7 @@ namespace Hotel_Client_Management_System.UControl
             long customerID = GetOrInsertCustomer(firstname, lastname, customerType, phone, address);
             long roomID = GetRoomID(roomType, roomDescription);
 
-            if(customerID > 0 && roomID > 0)
+            if (customerID > 0 && roomID > 0)
             {
                 InsertCheckIn(customerID, roomID, checkInDate);
                 ClearFields();
@@ -276,7 +276,6 @@ namespace Hotel_Client_Management_System.UControl
         {
             LoadCheckInRoomDescription();
         }
-
         private void cmbCheckInRoomDescription_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadRoomPrice();
