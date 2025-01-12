@@ -70,6 +70,7 @@
             label2 = new Label();
             label6 = new Label();
             groupBox1 = new GroupBox();
+            cmbCustomerType = new ComboBox();
             label11 = new Label();
             label10 = new Label();
             txtAddress = new TextBox();
@@ -81,7 +82,6 @@
             label3 = new Label();
             btnAdd = new Button();
             tabControlReservation = new TabControl();
-            cmbCustomerType = new ComboBox();
             tabPageUpdateAndCancelReservation.SuspendLayout();
             groupBox5.SuspendLayout();
             tabPageSearchReservation.SuspendLayout();
@@ -101,7 +101,7 @@
             tabPageUpdateAndCancelReservation.Location = new Point(4, 4);
             tabPageUpdateAndCancelReservation.Name = "tabPageUpdateAndCancelReservation";
             tabPageUpdateAndCancelReservation.Padding = new Padding(3);
-            tabPageUpdateAndCancelReservation.Size = new Size(1089, 507);
+            tabPageUpdateAndCancelReservation.Size = new Size(1089, 504);
             tabPageUpdateAndCancelReservation.TabIndex = 2;
             tabPageUpdateAndCancelReservation.Text = "Update and Cancel Reservation";
             // 
@@ -262,7 +262,7 @@
             tabPageSearchReservation.Location = new Point(4, 4);
             tabPageSearchReservation.Name = "tabPageSearchReservation";
             tabPageSearchReservation.Padding = new Padding(3);
-            tabPageSearchReservation.Size = new Size(1089, 507);
+            tabPageSearchReservation.Size = new Size(1089, 504);
             tabPageSearchReservation.TabIndex = 1;
             tabPageSearchReservation.Text = "Search Reservation";
             tabPageSearchReservation.UseVisualStyleBackColor = true;
@@ -276,7 +276,7 @@
             groupBox2.Controls.Add(dataGVReservation);
             groupBox2.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox2.ForeColor = Color.Black;
-            groupBox2.Location = new Point(6, 2);
+            groupBox2.Location = new Point(6, -2);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(1077, 482);
             groupBox2.TabIndex = 2;
@@ -564,6 +564,17 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Information";
             // 
+            // cmbCustomerType
+            // 
+            cmbCustomerType.Anchor = AnchorStyles.None;
+            cmbCustomerType.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbCustomerType.FlatStyle = FlatStyle.Flat;
+            cmbCustomerType.FormattingEnabled = true;
+            cmbCustomerType.Location = new Point(277, 172);
+            cmbCustomerType.Name = "cmbCustomerType";
+            cmbCustomerType.Size = new Size(85, 24);
+            cmbCustomerType.TabIndex = 25;
+            // 
             // label11
             // 
             label11.AutoSize = true;
@@ -680,17 +691,6 @@
             tabControlReservation.SelectedIndex = 0;
             tabControlReservation.Size = new Size(1097, 535);
             tabControlReservation.TabIndex = 0;
-            // 
-            // cmbCustomerType
-            // 
-            cmbCustomerType.Anchor = AnchorStyles.None;
-            cmbCustomerType.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbCustomerType.FlatStyle = FlatStyle.Flat;
-            cmbCustomerType.FormattingEnabled = true;
-            cmbCustomerType.Location = new Point(277, 172);
-            cmbCustomerType.Name = "cmbCustomerType";
-            cmbCustomerType.Size = new Size(85, 24);
-            cmbCustomerType.TabIndex = 25;
             // 
             // UserControlReservation
             // 

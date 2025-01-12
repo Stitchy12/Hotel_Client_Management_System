@@ -39,8 +39,8 @@
             cmbCheckInRoomType = new ComboBox();
             label6 = new Label();
             groupBox1 = new GroupBox();
+            cmbcustomerType = new ComboBox();
             label11 = new Label();
-            txtCustomerType = new TextBox();
             label10 = new Label();
             txtCheckInAddress = new TextBox();
             label8 = new Label();
@@ -55,27 +55,24 @@
             txtSearchCheckInID = new TextBox();
             label4 = new Label();
             dataGVCheckIn = new DataGridView();
-            check_in_id = new DataGridViewTextBoxColumn();
-            cus_id = new DataGridViewTextBoxColumn();
-            room_type = new DataGridViewTextBoxColumn();
-            room_description = new DataGridViewTextBoxColumn();
-            price = new DataGridViewTextBoxColumn();
-            check_in_date = new DataGridViewTextBoxColumn();
             tabPageCheckOut = new TabPage();
             groupBox5 = new GroupBox();
             btnCancel = new Button();
             btnUpdate = new Button();
             cmbCheckOutRoomDescription = new ComboBox();
             label13 = new Label();
-            label14 = new Label();
             label15 = new Label();
-            dptUpdateCheckOut = new DateTimePicker();
             dtpUpdateCheckIn = new DateTimePicker();
             cmbUpdatePrice = new ComboBox();
             cmbCheckOutRoomType = new ComboBox();
             label16 = new Label();
             label17 = new Label();
-            comboBox1 = new ComboBox();
+            Column1 = new DataGridViewTextBoxColumn();
+            Column2 = new DataGridViewTextBoxColumn();
+            Column3 = new DataGridViewTextBoxColumn();
+            Column4 = new DataGridViewTextBoxColumn();
+            Column5 = new DataGridViewTextBoxColumn();
+            Column6 = new DataGridViewTextBoxColumn();
             tabControlCheckInAndOut.SuspendLayout();
             tabPageAddCheckIn.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -98,7 +95,7 @@
             tabControlCheckInAndOut.Location = new Point(3, 3);
             tabControlCheckInAndOut.Name = "tabControlCheckInAndOut";
             tabControlCheckInAndOut.SelectedIndex = 0;
-            tabControlCheckInAndOut.Size = new Size(1096, 535);
+            tabControlCheckInAndOut.Size = new Size(1074, 535);
             tabControlCheckInAndOut.TabIndex = 1;
             // 
             // tabPageAddCheckIn
@@ -108,7 +105,7 @@
             tabPageAddCheckIn.Location = new Point(4, 4);
             tabPageAddCheckIn.Name = "tabPageAddCheckIn";
             tabPageAddCheckIn.Padding = new Padding(3);
-            tabPageAddCheckIn.Size = new Size(1088, 504);
+            tabPageAddCheckIn.Size = new Size(1066, 504);
             tabPageAddCheckIn.TabIndex = 0;
             tabPageAddCheckIn.Text = "Add Check - In";
             tabPageAddCheckIn.UseVisualStyleBackColor = true;
@@ -218,9 +215,8 @@
             // groupBox1
             // 
             groupBox1.BackColor = Color.Silver;
-            groupBox1.Controls.Add(comboBox1);
+            groupBox1.Controls.Add(cmbcustomerType);
             groupBox1.Controls.Add(label11);
-            groupBox1.Controls.Add(txtCustomerType);
             groupBox1.Controls.Add(label10);
             groupBox1.Controls.Add(txtCheckInAddress);
             groupBox1.Controls.Add(label8);
@@ -236,6 +232,14 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Information";
             // 
+            // cmbcustomerType
+            // 
+            cmbcustomerType.FormattingEnabled = true;
+            cmbcustomerType.Location = new Point(267, 196);
+            cmbcustomerType.Name = "cmbcustomerType";
+            cmbcustomerType.Size = new Size(85, 24);
+            cmbcustomerType.TabIndex = 27;
+            // 
             // label11
             // 
             label11.AutoSize = true;
@@ -247,13 +251,6 @@
             label11.Size = new Size(121, 18);
             label11.TabIndex = 26;
             label11.Text = "Customer Type:";
-            // 
-            // txtCustomerType
-            // 
-            txtCustomerType.Location = new Point(274, 197);
-            txtCustomerType.Name = "txtCustomerType";
-            txtCustomerType.Size = new Size(85, 23);
-            txtCustomerType.TabIndex = 25;
             // 
             // label10
             // 
@@ -354,7 +351,7 @@
             tabPageSearchCheckIn.Location = new Point(4, 4);
             tabPageSearchCheckIn.Name = "tabPageSearchCheckIn";
             tabPageSearchCheckIn.Padding = new Padding(3);
-            tabPageSearchCheckIn.Size = new Size(1088, 504);
+            tabPageSearchCheckIn.Size = new Size(1066, 504);
             tabPageSearchCheckIn.TabIndex = 1;
             tabPageSearchCheckIn.Text = "Search Check - In";
             tabPageSearchCheckIn.UseVisualStyleBackColor = true;
@@ -368,9 +365,9 @@
             groupBox2.Controls.Add(dataGVCheckIn);
             groupBox2.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox2.ForeColor = Color.Black;
-            groupBox2.Location = new Point(3, 3);
+            groupBox2.Location = new Point(6, 6);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1082, 498);
+            groupBox2.Size = new Size(1022, 495);
             groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
             groupBox2.Text = "Search Check - In";
@@ -398,60 +395,13 @@
             dataGVCheckIn.AllowUserToDeleteRows = false;
             dataGVCheckIn.BorderStyle = BorderStyle.None;
             dataGVCheckIn.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGVCheckIn.Columns.AddRange(new DataGridViewColumn[] { check_in_id, cus_id, room_type, room_description, price, check_in_date });
-            dataGVCheckIn.Location = new Point(6, 60);
+            dataGVCheckIn.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5, Column6 });
+            dataGVCheckIn.Location = new Point(6, 52);
             dataGVCheckIn.Name = "dataGVCheckIn";
             dataGVCheckIn.ReadOnly = true;
-            dataGVCheckIn.Size = new Size(1064, 432);
+            dataGVCheckIn.Size = new Size(993, 432);
             dataGVCheckIn.TabIndex = 0;
-            // 
-            // check_in_id
-            // 
-            check_in_id.DataPropertyName = "check_in_id";
-            check_in_id.HeaderText = "Check - In ID";
-            check_in_id.Name = "check_in_id";
-            check_in_id.ReadOnly = true;
-            check_in_id.Width = 150;
-            // 
-            // cus_id
-            // 
-            cus_id.DataPropertyName = "cus_id";
-            cus_id.HeaderText = "Customer ID";
-            cus_id.Name = "cus_id";
-            cus_id.ReadOnly = true;
-            cus_id.Width = 120;
-            // 
-            // room_type
-            // 
-            room_type.DataPropertyName = "room_type";
-            room_type.HeaderText = "Room Type";
-            room_type.Name = "room_type";
-            room_type.ReadOnly = true;
-            room_type.Width = 200;
-            // 
-            // room_description
-            // 
-            room_description.DataPropertyName = "room_description";
-            room_description.HeaderText = "Room Description";
-            room_description.Name = "room_description";
-            room_description.ReadOnly = true;
-            room_description.Width = 150;
-            // 
-            // price
-            // 
-            price.DataPropertyName = "price";
-            price.HeaderText = "Price";
-            price.Name = "price";
-            price.ReadOnly = true;
-            price.Width = 160;
-            // 
-            // check_in_date
-            // 
-            check_in_date.DataPropertyName = "check_in_date";
-            check_in_date.HeaderText = "Check - In Date";
-            check_in_date.Name = "check_in_date";
-            check_in_date.ReadOnly = true;
-            check_in_date.Width = 200;
+            dataGVCheckIn.CellClick += dataGVCheckIn_CellClick;
             // 
             // tabPageCheckOut
             // 
@@ -461,7 +411,7 @@
             tabPageCheckOut.Location = new Point(4, 4);
             tabPageCheckOut.Name = "tabPageCheckOut";
             tabPageCheckOut.Padding = new Padding(3);
-            tabPageCheckOut.Size = new Size(1088, 504);
+            tabPageCheckOut.Size = new Size(1066, 504);
             tabPageCheckOut.TabIndex = 2;
             tabPageCheckOut.Text = "Check - Out";
             // 
@@ -472,9 +422,7 @@
             groupBox5.Controls.Add(btnUpdate);
             groupBox5.Controls.Add(cmbCheckOutRoomDescription);
             groupBox5.Controls.Add(label13);
-            groupBox5.Controls.Add(label14);
             groupBox5.Controls.Add(label15);
-            groupBox5.Controls.Add(dptUpdateCheckOut);
             groupBox5.Controls.Add(dtpUpdateCheckIn);
             groupBox5.Controls.Add(cmbUpdatePrice);
             groupBox5.Controls.Add(cmbCheckOutRoomType);
@@ -531,18 +479,6 @@
             label13.TabIndex = 2;
             label13.Text = "Room Description:";
             // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold);
-            label14.ForeColor = Color.Black;
-            label14.Location = new Point(583, 222);
-            label14.Margin = new Padding(3);
-            label14.Name = "label14";
-            label14.Size = new Size(141, 18);
-            label14.TabIndex = 13;
-            label14.Text = "Check - Out Date:";
-            // 
             // label15
             // 
             label15.AutoSize = true;
@@ -555,16 +491,9 @@
             label15.TabIndex = 26;
             label15.Text = "Price:";
             // 
-            // dptUpdateCheckOut
-            // 
-            dptUpdateCheckOut.Location = new Point(518, 255);
-            dptUpdateCheckOut.Name = "dptUpdateCheckOut";
-            dptUpdateCheckOut.Size = new Size(271, 26);
-            dptUpdateCheckOut.TabIndex = 12;
-            // 
             // dtpUpdateCheckIn
             // 
-            dtpUpdateCheckIn.Location = new Point(217, 258);
+            dtpUpdateCheckIn.Location = new Point(380, 270);
             dtpUpdateCheckIn.Name = "dtpUpdateCheckIn";
             dtpUpdateCheckIn.Size = new Size(256, 26);
             dtpUpdateCheckIn.TabIndex = 10;
@@ -596,7 +525,7 @@
             label16.AutoSize = true;
             label16.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold);
             label16.ForeColor = Color.Black;
-            label16.Location = new Point(275, 222);
+            label16.Location = new Point(438, 234);
             label16.Margin = new Padding(3);
             label16.Name = "label16";
             label16.Size = new Size(128, 18);
@@ -616,13 +545,53 @@
             label17.TabIndex = 0;
             label17.Text = "Room Type:";
             // 
-            // comboBox1
+            // Column1
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(274, 226);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(85, 24);
-            comboBox1.TabIndex = 27;
+            Column1.DataPropertyName = "check_in_id";
+            Column1.HeaderText = "Check-In ID";
+            Column1.Name = "Column1";
+            Column1.ReadOnly = true;
+            Column1.Resizable = DataGridViewTriState.False;
+            Column1.Width = 130;
+            // 
+            // Column2
+            // 
+            Column2.DataPropertyName = "cus_id";
+            Column2.HeaderText = "Customer ID";
+            Column2.Name = "Column2";
+            Column2.ReadOnly = true;
+            Column2.Width = 150;
+            // 
+            // Column3
+            // 
+            Column3.DataPropertyName = "room_type";
+            Column3.HeaderText = "Room Type";
+            Column3.Name = "Column3";
+            Column3.ReadOnly = true;
+            Column3.Width = 150;
+            // 
+            // Column4
+            // 
+            Column4.DataPropertyName = "room_description";
+            Column4.HeaderText = "Room Description";
+            Column4.Name = "Column4";
+            Column4.ReadOnly = true;
+            Column4.Width = 200;
+            // 
+            // Column5
+            // 
+            Column5.DataPropertyName = "room_price";
+            Column5.HeaderText = "Price";
+            Column5.Name = "Column5";
+            Column5.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            Column6.DataPropertyName = "check_in_date";
+            Column6.HeaderText = "Check-In Date";
+            Column6.Name = "Column6";
+            Column6.ReadOnly = true;
+            Column6.Width = 200;
             // 
             // UserControlCheckInAndOut
             // 
@@ -630,7 +599,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(tabControlCheckInAndOut);
             Name = "UserControlCheckInAndOut";
-            Size = new Size(1102, 538);
+            Size = new Size(1084, 538);
             tabControlCheckInAndOut.ResumeLayout(false);
             tabPageAddCheckIn.ResumeLayout(false);
             groupBox3.ResumeLayout(false);
@@ -680,23 +649,20 @@
         private Button btnUpdate;
         private ComboBox cmbCheckOutRoomDescription;
         private Label label13;
-        private Label label14;
         private Label label15;
-        private DateTimePicker dptUpdateCheckOut;
         private DateTimePicker dtpUpdateCheckIn;
         private ComboBox cmbUpdatePrice;
         private ComboBox cmbCheckOutRoomType;
         private Label label16;
         private Label label17;
         private TextBox txtCheckInPrice;
-        private DataGridViewTextBoxColumn check_in_id;
-        private DataGridViewTextBoxColumn cus_id;
-        private DataGridViewTextBoxColumn room_type;
-        private DataGridViewTextBoxColumn room_description;
-        private DataGridViewTextBoxColumn price;
-        private DataGridViewTextBoxColumn check_in_date;
         private Label label11;
-        private TextBox txtCustomerType;
-        private ComboBox comboBox1;
+        private ComboBox cmbcustomerType;
+        private DataGridViewTextBoxColumn Column1;
+        private DataGridViewTextBoxColumn Column2;
+        private DataGridViewTextBoxColumn Column3;
+        private DataGridViewTextBoxColumn Column4;
+        private DataGridViewTextBoxColumn Column5;
+        private DataGridViewTextBoxColumn Column6;
     }
 }
